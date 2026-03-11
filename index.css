@@ -1,0 +1,52 @@
+body {
+    background-color: cornsilk;
+    display: flex;
+    flex-direction: column;
+}
+
+#Container{
+    border-radius: 5px;
+    margin: auto;
+    background-color: rgb(48, 136, 212);
+    display: flex;
+    flex-wrap: wrap;
+    height: 50dvb;
+    width: 50dvb;
+}
+
+#btnSection{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#btnSection button{
+    flex: 0 0 32%;
+    padding: 10px;
+}
+
+#btnSubSection {
+    display: flex;
+    padding: 5px;
+    width: 100%;
+}
+
+#operations{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+#operations button{
+    width: 100%;
+    height: 100%;
+}
+
+#display{
+    width: 100%;
+    padding: 10px;
+}
+
+#screen{
+    background-color: antiquewhite;
+    height: 100%;
+    
+}
