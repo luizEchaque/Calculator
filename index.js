@@ -18,8 +18,11 @@ btnSubSection.append(btnSection);
 btnSubSection.append(operations);
 
 
-let tst = '';
-let showTxt = []
+let currentNumber = '';
+let operator = null;
+let firstNumber = null;
+
+let showTxt = '';   
 
 let generateNumbers = () =>{
     for (let i = 0; i <= 9; i++){
@@ -32,8 +35,8 @@ let generateNumbers = () =>{
                 
             showTxt.push(event.target.id)
             screen.textContent = showTxt.join('');
-            let tst = showTxt.join('');
-            console.log(tst);
+            let currentNumber = showTxt.join('');
+            console.log(currentNumber);
         })
     }
 }
@@ -54,12 +57,13 @@ let generateOperators = () => {
         operator.textContent = index;
         operations.append(operator);
         
-        operator.addEventListener('click', (event) => {
-           if(event.target.id != '='){
-            let a = tst
-            console.log(a)
+        operator.addEventListener('click', (operator) => {
+           if (index === '='){
+                currentNumber = 0;
+                console.log(showTxt)
            }
-        })
+           }
+        )
     });
 }
 screen.append(showTxt)
