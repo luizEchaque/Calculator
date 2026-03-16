@@ -32,11 +32,8 @@ let generateNumbers = () =>{
         btnSection.append(button);
         
         button.addEventListener('click', (event) =>{
-                
-            showTxt.push(event.target.id)
-            screen.textContent = showTxt.join('');
-            let currentNumber = showTxt.join('');
-            console.log(currentNumber);
+            currentNumber += event.target.id;
+            updateScreen(firstNumber, operator, currentNumber);
         })
     }
 }
@@ -58,17 +55,31 @@ let generateOperators = () => {
         operations.append(operator);
         
         operator.addEventListener('click', (operator) => {
-           if (index === '='){
-                currentNumber = 0;
-                console.log(showTxt)
-           }
+            if (firstNumber === null) {
+                firstNumber = Number(currentNumber);
+            }
+            if (index === '+'){
+                firstNumber = currentNumber;
+                currentNumber = '';
+                console.log(firstNumber);
+                operator = index;
+                currentNumber(firstNumber, operator, currentNumber);
+            }
            }
         )
     });
 }
 screen.append(showTxt)
 
-
+let updateScreen = (firstNumber, operator, currentNumber) =>{
+    if (operator == null){
+        screen.textContent = firstNumber;
+    } else if ( currentNumber == null){
+        screen.textContent = firstNumber + ' ' + operator.target.id;
+    } else {
+        screen.textContent = firstNumber + ' ' + operator.target.id + ' ' + currentNumber;
+    }
+}
 
 let generateButtons = () => {
     
