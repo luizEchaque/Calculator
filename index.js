@@ -18,9 +18,9 @@ btnSubSection.append(btnSection);
 btnSubSection.append(operations);
 
 
-let currentNumber = '';
+let secondNumber = '';
 let operator = null;
-let firstNumber = null;
+let firstNumber = '';
 
 let showTxt = '';   
 
@@ -32,8 +32,15 @@ let generateNumbers = () =>{
         btnSection.append(button);
         
         button.addEventListener('click', (event) =>{
-            currentNumber += event.target.id;
-            updateScreen(firstNumber, operator, currentNumber);
+            if (operator === null){
+                firstNumber += event.target.id;
+            } else {
+                secondNumber += event.target.id;
+            }
+            updateScreen(firstNumber, operator, secondNumber);
+            
+            console.log(firstNumber)
+            console.log(secondNumber)
         })
     }
 }
@@ -48,36 +55,37 @@ let generateOperators = () => {
     ];
 
     possibleOperations.forEach((index) => {
-        let operator = document.createElement('button')
-        operator.className = 'operator'
-        operator.id = index;
-        operator.textContent = index;
-        operations.append(operator);
+        let opButton  = document.createElement('button')
+        opButton.className = 'operator'
+        opButton.id = index;
+        opButton.textContent = index;
+        operations.append(opButton);
         
-        operator.addEventListener('click', (operator) => {
-            if (firstNumber === null) {
-                firstNumber = Number(currentNumber);
+        opButton.addEventListener('click', () => {
+            if(index === '='){
+                firstNumber = operation(firstNumber, operator, secondNumber);
+                operator = '';
+                secondNumber = '';
+            }else {
+            operator = index;
             }
-            if (index === '+'){
-                firstNumber = currentNumber;
-                currentNumber = '';
-                console.log(firstNumber);
-                operator = index;
-                currentNumber(firstNumber, operator, currentNumber);
-            }
-           }
-        )
+
+            
+            console.log('operador global:', operator);
+            updateScreen(firstNumber, operator, secondNumber);
+           } 
+        ) 
     });
 }
 screen.append(showTxt)
 
-let updateScreen = (firstNumber, operator, currentNumber) =>{
+let updateScreen = (firstNumber, operator, secondNumber) =>{
     if (operator == null){
         screen.textContent = firstNumber;
-    } else if ( currentNumber == null){
-        screen.textContent = firstNumber + ' ' + operator.target.id;
+    } else if ( secondNumber == ''){
+        screen.textContent = firstNumber + ' ' + operator;
     } else {
-        screen.textContent = firstNumber + ' ' + operator.target.id + ' ' + currentNumber;
+        screen.textContent = firstNumber + ' ' + operator + ' ' + secondNumber;
     }
 }
 
@@ -90,20 +98,18 @@ let generateButtons = () => {
 
 generateButtons();
 
-let operation = (a, op, b) => {
-    switch (op){
+let operation = (firstNumber, operator, secondNumber) => {
+    switch (operator){
         case '-':
-            break;
+            return firstNumber - secondNumber;
         case '+':
-            break;
+            return firstNumber + secondNumber;
         case '*':
-            break;
+            return firstNumber * secondNumber;
         case '/':
-            break;
-        case '=':
-            break;
+            return firstNumber / secondNumber;
         default:
-
+            return firstNumber;
     }
 }
 
