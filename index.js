@@ -25,25 +25,31 @@ let firstNumber = '';
 let showTxt = '';   
 
 let generateNumbers = () =>{
-    for (let i = 0; i <= 9; i++){
+    let possibleNumbers = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+    let miscs = [ 'C', '.'];
+    possibleNumbers.forEach((number) => {
         let button = document.createElement('button')
-        button.id = i;
-        button.textContent = i;
+        button.id = number;
+        button.textContent = number;
         btnSection.append(button);
         
         button.addEventListener('click', (event) =>{
             if (operator === null){
-                firstNumber += event.target.id;
+               firstNumber += event.target.id;
             } else {
                 secondNumber += event.target.id;
             }
             updateScreen(firstNumber, operator, secondNumber);
             
-            console.log(firstNumber)
-            console.log(secondNumber)
+            typeof(firstNumber)
+            typeof(secondNumber)
         })
-    }
-}
+    })
+
+    miscs.forEach((misc)=>{
+        
+    })
+};
 
 let generateOperators = () => {
     let possibleOperations = [
@@ -62,19 +68,32 @@ let generateOperators = () => {
         operations.append(opButton);
         
         opButton.addEventListener('click', () => {
+            if (index !== null && firstNumber === ''){
+                operator = null;
+                secondNumber = '';
+                alert('RESULTADO INDEFINIDO')
+            }
             if(index === '='){
                 firstNumber = operation(firstNumber, operator, secondNumber);
-                operator = '';
+                operator = null;
                 secondNumber = '';
-            }else {
-            operator = index;
-            }
-
-            
-            console.log('operador global:', operator);
+                if (firstNumber !== '' && operator !== null && secondNumber !== '') {
+                    firstNumber = operation(firstNumber, operator, secondNumber);
+                    operator = null;
+                    secondNumber = '';
+                }
             updateScreen(firstNumber, operator, secondNumber);
-           } 
-        ) 
+                return;
+                
+            }
+             if (firstNumber !== '' && operator !== null && secondNumber !== '') {
+                firstNumber = operation(firstNumber, operator, secondNumber);
+                secondNumber = '';
+            }
+            operator = index;
+
+            updateScreen(firstNumber, operator, secondNumber);  
+        }) 
     });
 }
 screen.append(showTxt)
@@ -99,6 +118,9 @@ let generateButtons = () => {
 generateButtons();
 
 let operation = (firstNumber, operator, secondNumber) => {
+     firstNumber = Number(firstNumber);
+    secondNumber = Number(secondNumber);
+
     switch (operator){
         case '-':
             return firstNumber - secondNumber;
