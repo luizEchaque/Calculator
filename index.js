@@ -27,6 +27,7 @@ let showTxt = '';
 let generateNumbers = () =>{
     let possibleNumbers = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
     let miscs = [ 'C', '.'];
+    
     possibleNumbers.forEach((number) => {
         let button = document.createElement('button')
         button.id = number;
@@ -47,7 +48,30 @@ let generateNumbers = () =>{
     })
 
     miscs.forEach((misc)=>{
-        
+        let button = document.createElement('button')
+        button.id = misc;
+         button.classList.add('btn-clear');
+        button.textContent = misc;
+        btnSection.append(button);
+        button.addEventListener('click', () =>{
+            if (misc === 'C'){
+                operator = null;
+                secondNumber = '';
+                firstNumber = '0';
+                updateScreen(firstNumber, operator, secondNumber);  
+            }if (misc === '.') {
+                if (operator != null) {
+                    if (!secondNumber.includes('.')) {
+                        secondNumber += '.';
+                    }
+                } else {
+                    if (!firstNumber.includes('.')) {
+                        firstNumber += '.';
+                        }
+                    }
+                updateScreen(firstNumber, operator, secondNumber);
+            }
+        })
     })
 };
 
